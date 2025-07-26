@@ -1,11 +1,14 @@
 workflows:
-  build-apk:
-    name: Build APK
+  android-build:
+    name: Build Android APK
+    max_build_duration: 120
     environment:
-      flutter: stable
+      vars:
+        # Déclarer les variables (ex: versionCode)
     scripts:
-      - flutter packages pub get
-      - flutter build apk --release
+      - name: Build APK
+        script: |
+          cd android
+          ./gradlew bundleRelease  # Génère l'APK
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-      
+      - "android/app/build/outputs/**/*.apk"
